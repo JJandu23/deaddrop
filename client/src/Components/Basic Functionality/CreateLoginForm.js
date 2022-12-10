@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import { Button } from '@mui/material';
 import {CreateFriendRequestList} from './CreateFriendRequestList';
 import {CreateFriendList} from './CreateFriendList';
+import { fetchMostActiveFriend } from './fetchMostActiveFriend';
 
 
 //Call to web service to create account
@@ -60,6 +61,19 @@ export default function CreateLoginForm() {
     const [loggedIn, setLoggedIn] = React.useState(false);
     const [username, setUsername] = React.useState("");
     const [nickname, setNickname] = React.useState("");
+    const [mostActiveFriend, setMostActiveFriend] = React.useState("");
+
+    React.useEffect(() => {
+        async function fetchData() {
+          const mostActiveFriend = await fetchMostActiveFriend(username);
+          setMostActiveFriend(mostActiveFriend);
+          
+        }
+        fetchData();
+      }
+      , [username]);
+
+
     if (!loggedIn){
 
         return (
@@ -109,10 +123,10 @@ export default function CreateLoginForm() {
             <div>
                 <h1>Welcome {nickname} </h1>
                 <h4>Username: {username}</h4>
+                <h6>Your most active friend: {mostActiveFriend}</h6>
                 <CreateFriendList user={username} />
                 <CreateFriendRequestList user={username} />
             </div>
         )
     }
-
 }

@@ -12,7 +12,6 @@ import { fetchFriendList } from './fetchFriendList';
 import MessageIcon from '@mui/icons-material/Message';
 import { CreateMessageList } from './CreateMessageList';
 
-
 export function CreateFriendList({user}) {
   const [username, setUsername] = React.useState(user);
   const [friendList, setFriendList] = React.useState(null);
@@ -23,7 +22,6 @@ export function CreateFriendList({user}) {
       const friendList = await fetchFriendList(username);
       setFriendList(friendList);
       //convert friendRequests to array      
-      console.log(friendList);
       
     }
     fetchData();
